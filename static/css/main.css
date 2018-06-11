@@ -1,0 +1,128 @@
+.header-ul{
+    height:70px;
+    margin: 10px 0px;
+}
+.header-li{
+
+    font-size: 30px;
+    padding: 20px;
+    margin:0px auto;
+    width:300px;
+    height:30px;
+    line-height: 30px;
+}
+.layui-main{
+    width: 1440px;
+}
+
+.layui-table-cell{
+    height:38px;
+    margin-top: 5px;
+}
+
+.layui-table-header table tr{
+    background: #393D49;
+    color: #fff;
+}
+.layui-table-header table tr span{
+    font-size: 20px;
+    margin-top: -5px;
+}
+
+.layui-laypage .layui-laypage-curr .layui-laypage-em{
+    background-color: #1E9FFF;
+}
+
+#mask {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+}
+
+#editDetial{
+    width: 800px;
+    margin: 0px auto;
+    padding: 40px 20px;
+    background: #fff;
+    padding-top: 40px;
+    position: absolute;
+    top: -200%;
+    left: 0px;
+    right: 0px;
+    z-index: 9999;
+    border: 1px solid #333;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px #333;
+
+}
+
+#editDetialButton{
+    text-align: center;
+}
+#editDetialButton button{
+    margin: 0px 20px;
+}
+
+.addFile{
+    float: right;
+    margin: 10px 40px 10px 10px;
+}
+
+
+
+#showdetaillabel{
+        width: 1080px;
+        margin: 0 auto;
+        position: absolute;
+        top: 80px;
+        left: -1500px;
+        z-index: 9998;
+        display: block;
+
+        }
+        .divmain{
+          margin: 10px;
+          padding:10px 20px;
+          border: 1px solid #333;
+          border-radius: 10px;
+          box-shadow: 5px 5px 15px #333;
+          text-align: center;
+            background: #fff;
+        }
+        .divwrapping{
+            margin: 5px;
+            padding:5px;
+        }
+        .labelname{
+          width:15%;
+          display: inline-block;
+          font-size: 24px;
+          line-height: 24px;
+          padding: 10px ;
+          text-align: center;
+
+        }
+        .showdetail_p{
+          width:60%;
+          display: inline-block;
+          font-size: 24px;
+          line-height: 24px;
+          padding-top: 10px  ;
+          text-align: center;
+          border-bottom:1px solid #f82f53;
+          border-radius: 0px;
+        }
+      .hidedetaillabel{
+          width:40%;
+          margin:30px 10px 30px 40px;
+          height: 45px;
+          background-color: #f82f53;
+          font-size:20px;
+        }

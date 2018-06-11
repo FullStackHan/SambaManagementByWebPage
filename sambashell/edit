@@ -1,0 +1,5 @@
+#!/bin/bash
+rows=`cat /etc/samba/smb.conf |awk '{print NR "=" $1}'|grep '\['$1'\]'|cut -d "=" -f1`
+let torow=rows+11
+row=`cat /etc/samba/smb.conf |awk -F "=" '{if(NR>='$rows' && NR<='$torow')print NR"="$1}'|grep "$2"|cut -d "=" -f1`
+`sed -i "${row}s/$2.*/$3/g" /etc/samba/smb.conf`

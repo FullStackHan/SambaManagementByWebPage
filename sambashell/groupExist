@@ -1,0 +1,10 @@
+#!/bin/bash
+
+name=`cat /etc/group | cut -d ":" -f1|grep "^"$1"$"`
+if [ "$name" = "$1" ]
+then
+	echo "1"
+else
+	echo "0"
+fi
+

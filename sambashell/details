@@ -1,0 +1,25 @@
+#!/bin/bash
+
+MAX=`cat /etc/samba/smb.conf|grep path | wc -l`
+m=1
+detail='{"details": ['
+for (( i = 0; i < MAX ; i ++ ))
+do
+	dir=`cat /etc/samba/smb.conf|grep '\['|sed -n $m'p'`
+	if [ "$dir" = "[global]" ]
+	then
+		let m=m+1
+	fi
+	dirs[i]=`cat /etc/samba/smb.conf|grep '\['|sed -n $m'p'|tr -d '\[\]'`
+	let m=m+1
+	let n=i+1
+	paths[i]=`cat /etc/samba/smb.conf|grep path|sed -n $n'p'|cut -d ' ' -f3`
+	status[i]=`cat /etc/samba/smb.conf|grep browseable|sed -n $n'p'|cut -d ' ' -f3`
+	masks[i]=`cat /etc/samba/smb.conf|grep 'create mask'|sed -n $n'p'|cut -d ' ' -f4`
+	alls[i]=`df -h ${paths[i]}|sed -n '2p'|awk '{print $2}'`
+	useables[i]=`df -h ${paths[i]}|sed -n '2p'|awk '{print $4}'`
+	users[i]=`stat -c %U ${paths[i]}`
+	groups[i]=`stat -c %G ${paths[i]}`
+	detail=${detail}'"'${dirs[$i]}'":''{'' , "path":"'${paths[$i]}'" , "status":"'${status[$i]}'" , "mask":"'${masks[$i]}'" , "all":"'${alls[$i]}'" , "useable":"'${useables[$i]}'" , "user":"'${users[$i]}'" , "group":"'${groups[$i]}'"},'
+done
+echo $detail"]}"

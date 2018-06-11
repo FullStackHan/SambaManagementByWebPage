@@ -1,0 +1,5 @@
+#!/bin/bash
+
+conf="["$1"]\ncomment = "$2"\npath = "$3"\npublic = "$4"\nwritable = "$5"\nforce user = "$6"\ncreate mask = "$7"\ndirectory mask = "$8"\nforce group = "$9"\navailable = "${10}"\nbrowseable = "${11}"\nhosts allow = "${12}"\n"
+echo -e $conf>>/etc/samba/smb.conf
+

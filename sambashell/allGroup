@@ -1,0 +1,11 @@
+#!/bin/bash
+
+MAX=`cat /etc/group | cut -d ":" -f1|wc -l`
+all='['
+for (( i = 0; i < MAX ; i ++ ))
+do
+	let n=i+1
+	alls[i]=`cat /etc/group | cut -d ":" -f1|sed -n $n'p'`
+	all=${all}'"'${alls[i]}'",'
+done
+echo -e ${all::-1}']'

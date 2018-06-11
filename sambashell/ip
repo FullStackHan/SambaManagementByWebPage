@@ -1,0 +1,19 @@
+#!/bin/bash
+
+MAX=`ip a|grep -w inet|wc -l`
+all='["'
+for (( i = 0; i < MAX ; i ++ ))
+do
+	let n=i+1
+	ip1[i]=`ip a|grep -w inet|awk 'NR=='$n'{print $2}'|cut -d "." -f1`
+	if [ "${ip1[i]}" = "127" ]
+	then
+		ip[i]=${ip1[i]}'.'
+	else
+		ip2[i]=`ip a|grep -w inet|awk 'NR=='$n'{print $2}'|cut -d "." -f2`
+		ip3[i]=`ip a|grep -w inet|awk 'NR=='$n'{print $2}'|cut -d "." -f3`
+		ip[i]=${ip1[i]}'.'${ip2[i]}'.'${ip3[i]}'.'
+	fi
+	all=${all}${ip[i]}'","'
+done
+echo -e ${all::-3}'"]'

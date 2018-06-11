@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#create user if not exists  
+id $1 >& /dev/null  
+if [ $? -ne 0 ]  
+then  
+	echo "0"
+else
+	echo "1"
+fi

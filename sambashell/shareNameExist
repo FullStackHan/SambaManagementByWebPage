@@ -1,0 +1,9 @@
+#!/bin/bash
+
+name=`cat /etc/samba/smb.conf |awk '{print $1}'|grep '\['$1'\]'`
+if [ "$name" = "[$1]" ]
+then
+	echo "1"
+else
+	echo "0"
+fi

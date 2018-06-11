@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+
+
+    <head>
+
+
+
+        <meta charset="utf-8">
+
+        <title>Samba Login</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="">
+
+        <meta name="author" content="">
+
+
+
+        <!-- CSS -->
+
+        <link rel="stylesheet" href="/static/css/reset.css">
+
+        <link rel="stylesheet" href="/static/css/supersized.css">
+
+        <link rel="stylesheet" href="/static/css/style.css">
+        <link rel="stylesheet" href="/static/css/overhang.min.css">
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+
+        <!--[if lt IE 9]>
+
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+        <![endif]-->
+
+
+
+    </head>
+
+
+
+    <body>
+
+
+
+        <div class="page-container">
+
+            <h1>Login</h1>
+
+            <form  method="post">
+
+                <input type="text" name="username" class="username" placeholder="Username">
+
+                <input type="password" name="password" class="password" placeholder="Password">
+
+                <button type="button" onclick="check()">Sign me in</button>
+
+
+            </form>
+
+
+        </div>
+
+      
+
+
+
+        <!-- Javascript -->
+
+        <script src="/static/js/jquery-1.8.2.min.js"></script>
+        <script src="/static/js/jquery-ui.min.js"></script>
+        <script src="/static/js/overhang.min.js"></script>
+
+        <script src="/static/js/supersized.3.2.7.min.js"></script>
+
+        <script src="/static/js/supersized-init.js"></script>
+<script>
+
+
+
+
+
+
+    function check(){
+
+
+        var username = $('.page-container form').find('.username').val();
+        var password = $('.page-container form').find('.password').val();
+        if (username == '') {
+
+            $('body').overhang({
+                type: 'success',
+                duration: 5,
+                upper: true,
+                message: '用户名为空'
+            });
+
+            return false;
+        }else if (password == '') {
+            $('body').overhang({
+                custom: true,
+                textColor: '#fce4ec',
+                primary: '#f06292',
+                accent: '#f02db7',
+                message: '密码为空',
+                duration: 5,
+                upper: true
+            });
+            return false;
+        }else{
+            $.ajax({
+            url: "/checkLogin",
+            type: "post",
+            dataType:"json",
+            data: {
+                "username": username,
+                "password": password
+            },
+            success: function(data){
+                console.log(data);
+                if(data == true){
+                    window.location.href="/showSamba";
+                }else{
+                    $('body').overhang({
+                        type: 'error',
+                        duration: 5,
+                        upper: true,
+                        message: '用户名或密码错误，登录失败'
+
+                    });
+                }
+            },
+                error:function(data){
+                    console.log(data+"123");
+                }
+            });
+
+        }
+
+        return false;
+    }
+
+
+
+</script>
+
+
+
+    </body>
+
+
+
+</html>
+
+
+

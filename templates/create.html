@@ -1,0 +1,227 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SAMBA服务器管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/static/layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="/static/css/overhang.min.css">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <script src="/static/layui/layui.all.js" charset="utf-8"></script>
+  <script src="/static/js/jquery-1.8.2.min.js" charset="utf-8"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+<script src="/static/js/overhang.min.js"></script>
+</head>
+<style type="text/css">
+        #createDiv{
+          width: 800px;
+          margin: 0 auto;
+          background: #fff;
+          padding-top: 40px;
+        }
+        .layui-input-block{
+          margin-left: 250px;
+        }
+        .layui-form-label{
+          width: 200px;
+        }
+
+</style>
+<script>
+
+function renderForm(){
+    layui.use('form', function(){
+    var form = layui.form; 
+     form.render();
+  });   
+  }
+    function init() {
+        $.ajax({
+          type: "post",
+          url: "/getUserAndIp",
+          data: {},
+          success: function (result) {
+              // var result = [
+              // ["root","han1","han2","han3"],
+              // ["123.213123","213.213.23.213","213.23.2.32"]];
+              var resultJson = JSON.parse(result);
+              console.log(resultJson);
+              console.log(resultJson.user);
+              var user = resultJson.user;
+              console.log(resultJson.group);
+              var group = resultJson.group;
+              console.log(resultJson.ip);
+              var ip = resultJson.ip;
+              
+              $("#select_user").append($("<option value=\"\">请选择用户列表</option>"));
+              for (var i = 0; i < user.length; i++) {
+                  $("#select_user").append($("<option value=\"" + user[i] + "\">" + user[i] + "</option>"));
+              }
+              $("#select_group").append($("<option value=\"\">请选择Group列表</option>"));
+              for (var i = 0; i < group.length; i++) {
+                  $("#select_group").append($("<option value=\"" + group[i] + "\">" + group[i] + "</option>"));
+              }
+              $("#select_ip").append($("<option value=\"\">请选择IP列表</option>"));
+              for (var i = 0; i < ip.length; i++) {
+                  $("#select_ip").append($("<option value=\"" + ip[i] + "\">" + ip[i] + "</option>"));
+              }
+  
+              renderForm();//重新渲染表单
+              renderForm();//重新渲染表单
+  
+              }
+              
+        });
+      }
+  
+          
+         
+      $(function() {
+        init(); //绑定下拉菜单
+        renderForm();//重新渲染表单
+      });
+  
+  
+  
+  
+  
+      
+      
+    </script>
+  
+  
+<body>  
+    <ul class="header-ul layui-nav">
+        <li class="header-li">SAMBA服务器管理</li>
+    </ul>
+ <div id="createDiv">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>创建共享文件</legend>
+</fieldset>
+
+ <form class="layui-form" action="#">
+ <div class="layui-form-item">
+    <label class="layui-form-label">文件名</label>
+    <div class="layui-input-block">
+     <input type="text" name="share_name" required lay-verify="required" placeholder="请输入文件名" autocomplete="off" class="layui-input">    
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">共享路径</label>
+    <div class="layui-input-block">
+      <input type="text" name="share_directory" lay-verify="title" autocomplete="off" placeholder="请输入共享路径" class="layui-input">
+    </div>
+  </div>
+ <div class="layui-form-item">
+    <label class="layui-form-label">自动创建目录？</label>
+    <div class="layui-input-block">
+      <input type="checkbox" checked="" name="create_directory" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+    </div>
+  </div>
+    <div class="layui-form-item proSelect">
+         <label class="layui-form-label">用户列表</label>
+          <div class="layui-input-block editWidth">
+              <select name="userList" lay-verify="required" id="select_user">
+              </select>
+          </div>
+     </div>
+      <div class="layui-form-item proSelect">
+         <label class="layui-form-label">可访问IP列表</label>
+          <div class="layui-input-block editWidth">
+              <select name="ipList" lay-verify="required" id="select_ip">
+              </select>
+          </div>
+     </div>
+  
+  <div class="layui-form-item proSelect">
+    <label class="layui-form-label">可访问Group列表</label>
+     <div class="layui-input-block editWidth">
+         <select name="groupList" lay-verify="required" id="select_group">
+         </select>
+     </div>
+     </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">权限</label>
+      <div class="layui-input-block">
+        <input type="text" name="create_permissions" lay-verify="title" autocomplete="off" placeholder="请输入权限"  class="layui-input">
+      </div>
+    </div>
+
+   <div class="layui-form-item">
+    <label class="layui-form-label">Available？</label>
+    <div class="layui-input-block">
+      <input type="checkbox" checked="" name="isava" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">Browseable？</label>
+    <div class="layui-input-block">
+      <input type="checkbox" checked="" name="isbro" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <button class="layui-btn layui-btn-lg layui-btn-normal"  lay-submit lay-filter="demo1" style="width:240px; margin: 20px 50%;">创建</button>
+  </div>
+</form>
+
+</div> 
+
+
+
+<script>
+  layui.use('form', function(){
+   var form = layui.form; 
+ 
+   //监听指定开关
+   form.on('switch(switchTest)', function(data){
+ 
+   });
+ 
+     //监听提交
+   form.on('submit(demo1)', function(data){
+     console.log("create result:",data);
+     $.ajax({
+                    url: "/createFile",
+                    type: "post",
+                    dataType:"json",
+                    data: data.field,
+                    success: function(result){
+                        console.log(result);
+                        if(result == "0"){
+                          $('body').overhang({
+                              type: 'info',
+                              message: data.field.share_name+"共享目录已存在"
+                            });
+                        }else if(result == "1"){
+                          $('body').overhang({
+                              type: 'info',
+                              message: "创建成功"
+                            });
+                            setTimeout(
+                              'window.location.href="/showSamba";'
+                            ,1000);
+
+                        }else{
+                          $('body').overhang({
+                              type: 'info',
+                              message: "创建失败"
+                            });
+                        }
+                    },
+                    error: function(error){
+                      console.log(error);
+                    }
+     });
+      return false;
+      
+   });
+ 
+   form.render();
+ });   
+
+   </script>
+   </body>
+</html>
